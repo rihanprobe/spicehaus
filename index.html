@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spice Haus — Bhuna Gosht by Kilo</title>
+  <meta name="description" content="Slow-cooked Bhuna Gosht by Spice Haus. AED 185 per kg. Self collection from Sharjah home kitchen.">
+  <meta property="og:title" content="Spice Haus — Bhuna Gosht by Kilo">
+  <meta property="og:description" content="Slow-cooked Bhuna Gosht by Spice Haus. AED 185 per kg.">
+  <meta property="og:image" content="spice-haus-og.png">
+  <meta property="og:type" content="website">
+  <style>
+    :root {
+      --bg: #1B3A3B;
+      --surface: #1F4445;
+      --surface-soft: #234A4B;
+      --primary: #D4AF37;
+      --primary-soft: rgba(212,175,55,0.15);
+      --text: #F5F1E8;
+      --text-muted: #B8C7C2;
+      --shadow: 0 10px 40px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --transition: 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Open Sans",
+                   "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    .app {
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--surface);
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(245,241,232,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid rgba(212,175,55,0.2);
+    }
+    /* FIX 1: Logo fits perfectly in circle for any shape */
+    .brand-logo img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .brand-tagline {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* MAIN */
+    .main {
+      padding: 22px 18px 24px;
+    }
+
+    /* FIX 2: Swapped headline order — Product name BIG, tagline small */
+    .hero-banner {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .hero-product {
+      font-size: 2.15rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .hero-headline {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid rgba(212,175,55,0.12);
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+    .dish-photo {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: var(--surface-soft);
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dish-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .dish-photo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .dish-photo-placeholder svg {
+      width: 56px;
+      height: 56px;
+      fill: var(--text-muted);
+      opacity: 0.5;
+    }
+    .dish-photo-placeholder .placeholder-text {
+      font-size: 0.82rem;
+      opacity: 0.85;
+    }
+
+    /* FIX 3: Price matches gold color and style */
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .title-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+    .dish-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+    .title-sep {
+      color: rgba(212,175,55,0.3);
+      font-size: 0.9rem;
+    }
+    .title-price {
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* FIX 4: Badge + WhatsApp pill button row */
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(212,175,55,0.25);
+    }
+    .wa-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #25D366;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .wa-pill:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37,211,102,0.45);
+    }
+    .wa-pill svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.75;
+    }
+    .note-ing {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* INFO GRID */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .info-item {
+      background: rgba(212,175,55,0.06);
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid rgba(212,175,55,0.1);
+    }
+    .info-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .info-value {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* NOTICE BOX */
+    .notice-box {
+      background: rgba(212,175,55,0.06);
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid rgba(212,175,55,0.12);
+      margin-top: 12px;
+    }
+    .notice-box .notice-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .actions {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      transition: transform var(--transition), box-shadow var(--transition);
+      text-align: center;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-wa {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+    }
+    .btn-wa:hover {
+      background: #20BD5A;
+      box-shadow: 0 8px 26px rgba(37,211,102,0.4);
+    }
+    .btn-wa svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* SOFT NOTE */
+    .soft-note {
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* FOOTER */
+    .footer-note {
+      padding: 14px 18px 18px;
+      text-align: center;
+    }
+    .footer-note p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+    .footer-note strong {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- HEADER (WhatsApp link REMOVED) -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="spice-haus-logo.png" alt="Spice Haus logo">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Spice Haus</span>
+          <span class="brand-tagline">Spice Haus · Home Kitchen</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- HERO: Product name BIG above, tagline small below -->
+      <section class="hero-banner">
+        <p class="hero-product">Bhuna Gosht – 1 kg</p>
+        <h1 class="hero-headline">Slow-cooked with love to perfection</h1>
+      </section>
+
+      <!-- PRODUCT CARD -->
+      <section class="card">
+        <div class="dish-photo">
+          <img src="bhuna-gosht.jpg" alt="Bhuna Gosht in rich masala"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="dish-photo-placeholder" style="display:none">
+            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            <span class="placeholder-text">Add your Bhuna Gosht photo as<br><strong>bhuna-gosht.jpg</strong> in the same folder</span>
+          </div>
+        </div>
+
+        <div class="title-row">
+          <div class="title-left">
+            <span class="dish-title">Beef Bhuna Gosht</span>
+            <span class="title-sep">—</span>
+            <span class="title-price">1 kg</span>
+            <span class="title-sep">·</span>
+            <span class="title-price">AED 185</span>
+          </div>
+        </div>
+
+        <p class="desc">
+          Tender, slow-cooked overnight bhuna gosht made with A-grade premium beef,
+          airlifted for freshness, in a rich, thick masala — prepared lovingly for
+           hearty, and deeply spiced &mdash; best enjoyed with
+          fresh rice rotis, parathas, or soft French bread.
+        </p>
+
+        <div class="badge-row">
+          <span class="badge">Serves 3&ndash;4 people</span>
+          <a class="wa-pill" href="https://wa.me/971524718286?text=Hi%20Spice%20Haus%2C%20I%27d%20like%20to%20order%20Bhuna%20Gosht%20by%20kilo.%0AQty%20(in%20Kilos)%3A%0ACollection%20date%3A%0APickup%20Time%3A%0AI%20understand%20the%20price%20is%20AED%20185%20per%20kg%20and%20full%20advance%20payment%20is%20required%20to%20confirm%20my%20order." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.031-.967-.273-.099-.472-.149-.67.149-.199.298-.768.967-.942 1.166-.174.199-.347.223-.646.074-.298-.149-1.256-.463-2.391-1.476-.884-.789-1.481-1.762-1.655-2.06-.174-.298-.018-.459.13-.607.135-.134.299-.348.448-.521.149-.173.199-.298.298-.497.1-.199.05-.372-.025-.521-.075-.149-.67-1.612-.919-2.208-.243-.58-.487-.501-.669-.51-.174-.009-.373-.009-.572-.009-.199 0-.522.074-.795.372-.273.298-1.041 1.017-1.041 2.479 0 1.462 1.065 2.874 1.213 3.074.149.199 2.096 3.2 5.078 4.487.709.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.086 1.758-.719 2.006-1.413.248-.695.248-1.29.174-1.413-.074-.124-.273-.199-.571-.348m-5.421 7.403h-.005a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            WhatsApp Order
+          </a>
+        </div>
+
+        <p class="note-ing">Prepared only with A-grade premium beef, airlifted for freshness.</p>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Location</div>
+            <div class="info-value">Sharjah</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Collection</div>
+            <div class="info-value">Self-collection only</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Advance Notice</div>
+            <div class="info-value">24 hours</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Payment</div>
+            <div class="info-value">Full advance</div>
+          </div>
+        </div>
+
+        <div class="notice-box">
+          <p class="notice-text">
+            Self collection only from our home kitchen in Sharjah. Orders are prepared fresh and require 24 hours' advance confirmation.<br><br>
+            Orders confirmed between 9:00 AM and 5:00 PM will be scheduled for next-day collection, as we require 24 hours' notice.
+          </p>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-wa" href="https://wa.me/971524718286?text=Hi%20Spice%20Haus%2C%20I%27d%20like%20to%20order%20Bhuna%20Gosht%20by%20kilo.%0AQty%20(in%20Kilos)%3A%0ACollection%20date%3A%0APickup%20Time%3A%0AI%20understand%20the%20price%20is%20AED%20185%20per%20kg%20and%20full%20advance%20payment%20is%20required%20to%20confirm%20my%20order." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.031-.967-.273-.099-.472-.149-.67.149-.199.298-.768.967-.942 1.166-.174.199-.347.223-.646.074-.298-.149-1.256-.463-2.391-1.476-.884-.789-1.481-1.762-1.655-2.06-.174-.298-.018-.459.13-.607.135-.134.299-.348.448-.521.149-.173.199-.298.298-.497.1-.199.05-.372-.025-.521-.075-.149-.67-1.612-.919-2.208-.243-.58-.487-.501-.669-.51-.174-.009-.373-.009-.572-.009-.199 0-.522.074-.795.372-.273.298-1.041 1.017-1.041 2.479 0 1.462 1.065 2.874 1.213 3.074.149.199 2.096 3.2 5.078 4.487.709.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.086 1.758-.719 2.006-1.413.248-.695.248-1.29.174-1.413-.074-.124-.273-.199-.571-.348m-5.421 7.403h-.005a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            WhatsApp to Order
+          </a>
+        </div>
+
+        <p class="soft-note">To confirm your order and reserve your slot, click on the WhatsApp CTA button.</p>
+
+      </section>
+
+    </main>
+
+    <footer class="footer-note">
+      <p><strong>Spice Haus</strong> &bull; Home kitchen in Sharjah &bull; Self collection only</p>
+    </footer>
+
+  </div>
+</body>
+</html>
