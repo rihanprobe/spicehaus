@@ -707,5 +707,5 @@
 
           // Close modal and redirect to WhatsApp (works on mobile and web)
           modal.style.display = 'none';
-          window.location.href = 'https://wa.me/971524718286?text=' + waMsg;
+          setTimeout(function(){ window.location.href = 'https://wa.me/971524718286?text=' + waMsg; }, 600);
         });
