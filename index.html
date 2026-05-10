@@ -684,7 +684,7 @@
                           const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcfsIvApSKc2IGUQzHG7HTgApbtTm0Kph3hTqI7c9109obsAtKx50lDD7QWHCO9qLm/exec';
 
                           try {
-                                    if (SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbwcfsIvApSKc2IGUQzHG7HTgApbtTm0Kph3hTqI7c9109obsAtKx50lDD7QWHCO9qLm/exec') {
+                                    if (true || 'https://script.google.com/macros/s/AKfycbwcfsIvApSKc2IGUQzHG7HTgApbtTm0Kph3hTqI7c9109obsAtKx50lDD7QWHCO9qLm/exec') {
                                                 await fetch(SCRIPT_URL, {
                                                                     method: 'POST',
                           mode: 'no-cors',
@@ -709,7 +709,7 @@
 
                           // Redirect to WhatsApp
                           const whatsappUrl = `https://wa.me/971524718286?text=${message}`;
-                          window.location.href = whatsappUrl;
+                          window.open(whatsappUrl, '_blank');
                         });
                 </script>
 </body>
