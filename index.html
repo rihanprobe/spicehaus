@@ -480,5 +480,223 @@
     </footer>
 
   </div>
+
+            <!-- ORDER FORM MODAL -->
+            <div id="orderModal" class="modal">
+                  <div class="modal-content">
+                          <span class="close">&times;</span>
+                          <h2>Complete Your Order</h2>
+                          <form id="orderForm">
+                                    <div class="form-group">
+                                                <label for="firstName">First Name *</label>
+                                                <input type="text" id="firstName" name="firstName" required>
+                                              </div>
+
+                                    <div class="form-group">
+                                                <label for="address">Address *</label>
+                                                <input type="text" id="address" name="address" required>
+                                              </div>
+
+                                    <div class="form-group">
+                                                <label for="city">City *</label>
+                                                <input type="text" id="city" name="city" required>
+                                              </div>
+
+                                    <div class="form-group">
+                                                <label for="mobile">Mobile Number *</label>
+                                                <input type="tel" id="mobile" name="mobile" required>
+                                              </div>
+
+                                    <div class="form-group">
+                                                <label for="orderDate">Collection or Delivery Date *</label>
+                                                <input type="date" id="orderDate" name="orderDate" required>
+                                              </div>
+
+                                    <div class="form-group">
+                                                <label for="orderTime">Delivery or Collection Time *</label>
+                                                <input type="time" id="orderTime" name="orderTime" required>
+                                              </div>
+
+                                    <div class="form-group">
+                                                <label for="deliveryOption">Delivery Option *</label>
+                                                <select id="deliveryOption" name="deliveryOption" required>
+                                                              <option value="">Select Option</option>
+                                                              <option value="Self Collection">Self Collection</option>
+                                                              <option value="Delivery">Delivery</option>
+                                                            </select>
+                                              </div>
+
+                                    <div class="form-group">
+                                                <div id="orderTotal" style="font-size: 1.2rem; font-weight: bold; color: var(--primary); margin-top: 10px;"></div>
+                                              </div>
+
+                                    <button type="submit" class="btn btn-wa" style="width: 100%;">Continue to WhatsApp</button>
+                                  </form>
+                        </div>
+                </div>
+
+            <!-- MODAL STYLES -->
+            <style>
+                  .modal {
+                          display: none;
+                          position: fixed;
+                          z-index: 1000;
+                          left: 0;
+                          top: 0;
+                          width: 100%;
+                          height: 100%;
+                          background-color: rgba(0,0,0,0.6);
+                          overflow: auto;
+                        }
+
+                  .modal-content {
+                          background-color: #fefefe;
+                          margin: 5% auto;
+                          padding: 30px;
+                          border-radius: 12px;
+                          max-width: 500px;
+                          box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                        }
+
+                  .close {
+                          color: #aaa;
+                          float: right;
+                          font-size: 28px;
+                          font-weight: bold;
+                          cursor: pointer;
+                        }
+
+                  .close:hover, .close:focus {
+                          color: #000;
+                        }
+
+                  .modal-content h2 {
+                          margin-top: 0;
+                          color: var(--primary);
+                        }
+
+                  .form-group {
+                          margin-bottom: 15px;
+                        }
+
+                  .form-group label {
+                          display: block;
+                          margin-bottom: 5px;
+                          font-weight: 600;
+                          color: #333;
+                        }
+
+                  .form-group input, .form-group select {
+                          width: 100%;
+                          padding: 10px;
+                          border: 1px solid #ddd;
+                          border-radius: 6px;
+                          font-size: 0.95rem;
+                          box-sizing: border-box;
+                        }
+
+                  .form-group input:focus, .form-group select:focus {
+                          outline: none;
+                          border-color: var(--primary);
+                        }
+                </style>
+
+            <!-- FORM SCRIPT -->
+            <script>
+                  // Get modal elements
+                  const modal = document.getElementById('orderModal');
+                  const closeBtn = document.querySelector('.close');
+                  const form = document.getElementById('orderForm');
+                  const deliveryOption = document.getElementById('deliveryOption');
+                  const orderTotal = document.getElementById('orderTotal');
+
+                  // Open modal when WhatsApp buttons are clicked
+                  document.addEventListener('DOMContentLoaded', function() {
+                          const waButtons = document.querySelectorAll('.wa-pill, .btn-wa');
+                          waButtons.forEach(btn => {
+                                    btn.addEventListener('click', function(e) {
+                                                e.preventDefault();
+                                                modal.style.display = 'block';
+                                              });
+                                  });
+                        });
+
+                  // Close modal
+                  closeBtn.onclick = function() {
+                          modal.style.display = 'none';
+                        };
+
+                  window.onclick = function(event) {
+                          if (event.target == modal) {
+                                    modal.style.display = 'none';
+                                  }
+                                };
+
+                  // Update price based on delivery option
+                  deliveryOption.addEventListener('change', function() {
+                          const option = this.value;
+                          if (option === 'Self Collection') {
+                                    orderTotal.textContent = 'Total: AED 185';
+                                  } else if (option === 'Delivery') {
+                                    orderTotal.textContent = 'Total: AED 185 + AED 25 Delivery = AED 210';
+                                  } else {
+                                    orderTotal.textContent = '';
+                                  }
+                        });
+
+                  // Handle form submission
+                  form.addEventListener('submit', async function(e) {
+                          e.preventDefault();
+
+                          // Get form data
+                          const formData = {
+                                    firstName: document.getElementById('firstName').value,
+                                    address: document.getElementById('address').value,
+                                    city: document.getElementById('city').value,
+                                    mobile: document.getElementById('mobile').value,
+                                    orderDate: document.getElementById('orderDate').value,
+                                    orderTime: document.getElementById('orderTime').value,
+                                    deliveryOption: document.getElementById('deliveryOption').value,
+                                    total: document.getElementById('deliveryOption').value === 'Self Collection' ? 'AED 185' : 'AED 210'
+                                            };
+
+                          // Send to Google Sheets (you'll need to set up Google Apps Script)
+                          // Instructions:
+                          // 1. Create a Google Sheet
+                          // 2. Go to Extensions > Apps Script
+                          // 3. Paste the Google Apps Script code (see below)
+                          // 4. Deploy as web app and copy the URL
+                          // 5. Replace SCRIPT_URL below with your deployment URL
+                          const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+                          try {
+                                    if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+                                                await fetch(SCRIPT_URL, {
+                                                                    method: 'POST',
+                          mode: 'no-cors',
+                                                              headers: { 'Content-Type': 'application/json' },
+                                                              body: JSON.stringify(formData)
+                                                                          });
+                                              }
+                                            } catch (error) {
+                                    console.log('Google Sheets save error (non-blocking):', error);
+                                  }
+
+                                  // Create WhatsApp message
+                                  const message = `Hi Spice Haus, I'd like to place an order:%0A%0A` +
+                                            `*Name:* ${formData.firstName}%0A` +
+                                            `*Address:* ${formData.address}, ${formData.city}%0A` +
+                                            `*Mobile:* ${formData.mobile}%0A` +
+                                            `*Date:* ${formData.orderDate}%0A` +
+                                            `*Time:* ${formData.orderTime}%0A` +
+                                            `*Option:* ${formData.deliveryOption}%0A` +
+                                            `*Total:* ${formData.total}%0A%0A` +
+                                            `Product: Bhuna Gosht - 1kg`;
+
+                          // Redirect to WhatsApp
+                          const whatsappUrl = `https://wa.me/971524718286?text=${message}`;
+                          window.location.href = whatsappUrl;
+                        });
+                </script>
 </body>
 </html>
