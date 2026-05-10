@@ -671,7 +671,7 @@
                                     orderDate: document.getElementById('orderDate').value,
                                     orderTime: document.getElementById('orderTime').value,
                                     deliveryOption: document.getElementById('deliveryOption').value,
-                                    quantity: document.getElementById('quantity').value,       get total() { const qty = parseInt(this.quantity); const base = 185 * qty; return this.deliveryOption === 'Self Collection' ? 'AED ' + base : 'AED ' + base + ' + AED 25 Delivery = AED ' + (base + 25); }
+                                    const qty = parseInt(document.getElementById('quantity').value); const delivOpt = document.getElementById('deliveryOption').value; const basePrice = 185 * qty; const totalStr = delivOpt === 'Self Collection' ? 'AED ' + basePrice : 'AED ' + basePrice + ' + AED 25 Delivery = AED ' + (basePrice + 25); const formData = { customerName: document.getElementById('customerName').value, item: document.getElementById('item').value, quantity: qty, address: document.getElementById('address').value, city: document.getElementById('city').value, mobile: document.getElementById('mobile').value, orderDate: document.getElementById('orderDate').value, orderTime: document.getElementById('orderTime').value, deliveryOption: delivOpt, total: totalStr };
                                             };
 
                           // Send to Google Sheets (you'll need to set up Google Apps Script)
