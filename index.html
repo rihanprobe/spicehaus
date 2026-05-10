@@ -658,63 +658,54 @@
                                   }
                         });
 
-                  // Handle form submission
-                  form.addEventListener('submit', async function(e) {
-                          e.preventDefault();
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
 
-                                          // Get form data
-                        const qty = parseInt(document.getElementById('quantity').value);
-                        const delivOpt = document.getElementById('deliveryOption').value;
-                        const basePrice = 185 * qty;
-                        const totalStr = delivOpt === 'Self Collection' ? 'AED ' + basePrice : 'AED ' + basePrice + ' + AED 25 Delivery = AED ' + (basePrice + 25);
-                        const formData = {
-                          customerName: document.getElementById('customerName').value,
-                          item: document.getElementById('item').value,
-                          quantity: qty,
-                          address: document.getElementById('address').value,
-                          city: document.getElementById('city').value,
-                          mobile: document.getElementById('mobile').value,
-                          orderDate: document.getElementById('orderDate').value,
-                          orderTime: document.getElementById('orderTime').value,
-                          deliveryOption: delivOpt,
-                          total: totalStr
-                        };
+          // Calculate totals
+          const qty = parseInt(document.getElementById('quantity').value);
+          const delivOpt = document.getElementById('deliveryOption').value;
+          const basePrice = 185 * qty;
+          const totalStr = delivOpt === 'Self Collection'
+            ? 'AED ' + basePrice
+            : 'AED ' + basePrice + ' + AED 25 Delivery = AED ' + (basePrice + 25);
 
-                          // Send to Google Sheets (you'll need to set up Google Apps Script)
-                          // Instructions:
-                          // 1. Create a Google Sheet
-                          // 2. Go to Extensions > Apps Script
-                          // 3. Paste the Google Apps Script code (see below)
-                          // 4. Deploy as web app and copy the URL
-                          // 5. Replace SCRIPT_URL below with your deployment URL
-                          const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcfsIvApSKc2IGUQzHG7HTgApbtTm0Kph3hTqI7c9109obsAtKx50lDD7QWHCO9qLm/exec';
+          // Collect form values
+          const name    = document.getElementById('customerName').value;
+          const item    = document.getElementById('item').value;
+          const address = document.getElementById('address').value;
+          const city    = document.getElementById('city').value;
+          const mobile  = document.getElementById('mobile').value;
+          const date    = document.getElementById('orderDate').value;
+          const time    = document.getElementById('orderTime').value;
 
-                          try {
-                                    if (true || 'https://script.google.com/macros/s/AKfycbwcfsIvApSKc2IGUQzHG7HTgApbtTm0Kph3hTqI7c9109obsAtKx50lDD7QWHCO9qLm/exec') {
-                                                await fetch(SCRIPT_URL + '?' + new URLSearchParams(formData), {
-                                                                    method: 'GET',
-                          mode: 'no-cors',
-                                                                          });
-                                              }
-                                            } catch (error) {
-                                    console.log('Google Sheets save error (non-blocking):', error);
-                                  }
+          // Send to Google Sheets via image ping (works on mobile & web, no CORS issues)
+          const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcfsIvApSKc2IGUQzHG7HTgApbtTm0Kph3hTqI7c9109obsAtKx50lDD7QWHCO9qLm/exec';
+          const params = 'customerName=' + encodeURIComponent(name)
+            + '&item=' + encodeURIComponent(item)
+            + '&quantity=' + encodeURIComponent(qty)
+            + '&address=' + encodeURIComponent(address)
+            + '&city=' + encodeURIComponent(city)
+            + '&mobile=' + encodeURIComponent(mobile)
+            + '&orderDate=' + encodeURIComponent(date)
+            + '&orderTime=' + encodeURIComponent(time)
+            + '&deliveryOption=' + encodeURIComponent(delivOpt)
+            + '&total=' + encodeURIComponent(totalStr);
+          new Image().src = SCRIPT_URL + '?' + params;
 
-                                  // Create WhatsApp message
-                                  const message = `Hi Spice Haus, I'd like to place an order:%0A%0A` +
-                                            `*Name:* ${formData.customerName}%0A` +
-                                            `*Address:* ${formData.address}, ${formData.city}%0A` +
-                                            `*Mobile:* ${formData.mobile}%0A` +
-                                            `*Date:* ${formData.orderDate}%0A` +
-                                            `*Time:* ${formData.orderTime}%0A` +
-                                            `*Option:* ${formData.deliveryOption}%0A` +
-                                            `*Total:* ${formData.total}%0A%0A` +
-                                            `*Item:* ${formData.item}%0A` +       `*Quantity:* ${formData.quantity} kg%0A` +       `*Total:* ${formData.total}`;
+          // Build WhatsApp message
+          const waMsg = 'Hi Spice Haus, I would like to place an order:%0A%0A'
+            + '*Name:* ' + encodeURIComponent(name) + '%0A'
+            + '*Item:* ' + encodeURIComponent(item) + '%0A'
+            + '*Quantity:* ' + qty + ' kg%0A'
+            + '*Address:* ' + encodeURIComponent(address + ', ' + city) + '%0A'
+            + '*Mobile:* ' + encodeURIComponent(mobile) + '%0A'
+            + '*Date:* ' + encodeURIComponent(date) + '%0A'
+            + '*Time:* ' + encodeURIComponent(time) + '%0A'
+            + '*Delivery Option:* ' + encodeURIComponent(delivOpt) + '%0A'
+            + '*Total:* ' + encodeURIComponent(totalStr);
 
-                          // Redirect to WhatsApp
-                          const whatsappUrl = `https://wa.me/971524718286?text=${message}`;
-                          window.open(whatsappUrl, '_blank');
-                        });
-                </script>
-</body>
-</html>
+          // Close modal and redirect to WhatsApp (works on mobile and web)
+          modal.style.display = 'none';
+          window.location.href = 'https://wa.me/971524718286?text=' + waMsg;
+        });
