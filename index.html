@@ -691,7 +691,7 @@
             + '&orderTime=' + encodeURIComponent(time)
             + '&deliveryOption=' + encodeURIComponent(delivOpt)
             + '&total=' + encodeURIComponent(totalStr);
-          new Image().src = SCRIPT_URL + '?' + params;
+          var iframe = document.createElement('iframe'); iframe.style.display='none'; iframe.src = SCRIPT_URL + '?' + params; document.body.appendChild(iframe);
 
           // Build WhatsApp message
           const waMsg = 'Hi Spice Haus, I would like to place an order:%0A%0A'
