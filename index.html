@@ -488,9 +488,23 @@
                           <h2>Complete Your Order</h2>
                           <form id="orderForm">
                                     <div class="form-group">
-                                                <label for="firstName">First Name *</label>
-                                                <input type="text" id="firstName" name="firstName" required>
+                                                <label for="customerName">Name *</label>
+                                                <input type="text" id="customerName" name="customerName" required>
                                               </div>
+                                      <div class="form-group">
+                                                    <label for="item">Item *</label>
+                                                    <select id="item" name="item" required>
+                                                                    <option value="Bhuna Gosht" selected>Bhuna Gosht</option>
+                                                                  </select>
+                                                  </div>
+                                      <div class="form-group">
+                                                    <label for="quantity">Quantity (kg) *</label>
+                                                    <select id="quantity" name="quantity" required>
+                                                                    <option value="1">1 kg</option>
+                                                                    <option value="2">2 kg</option>
+                                                                    <option value="3">3 kg</option>
+                                                                  </select>
+                                                  </div>
 
                                     <div class="form-group">
                                                 <label for="address">Address *</label>
@@ -650,14 +664,14 @@
 
                           // Get form data
                           const formData = {
-                                    firstName: document.getElementById('firstName').value,
+                                    customerName: document.getElementById('customerName').value,       item: document.getElementById('item').value,       quantity: document.getElementById('quantity').value,
                                     address: document.getElementById('address').value,
                                     city: document.getElementById('city').value,
                                     mobile: document.getElementById('mobile').value,
                                     orderDate: document.getElementById('orderDate').value,
                                     orderTime: document.getElementById('orderTime').value,
                                     deliveryOption: document.getElementById('deliveryOption').value,
-                                    total: document.getElementById('deliveryOption').value === 'Self Collection' ? 'AED 185' : 'AED 210'
+                                    quantity: document.getElementById('quantity').value,       get total() { const qty = parseInt(this.quantity); const base = 185 * qty; return this.deliveryOption === 'Self Collection' ? 'AED ' + base : 'AED ' + base + ' + AED 25 Delivery = AED ' + (base + 25); }
                                             };
 
                           // Send to Google Sheets (you'll need to set up Google Apps Script)
@@ -684,14 +698,14 @@
 
                                   // Create WhatsApp message
                                   const message = `Hi Spice Haus, I'd like to place an order:%0A%0A` +
-                                            `*Name:* ${formData.firstName}%0A` +
+                                            `*Name:* ${formData.customerName}%0A` +
                                             `*Address:* ${formData.address}, ${formData.city}%0A` +
                                             `*Mobile:* ${formData.mobile}%0A` +
                                             `*Date:* ${formData.orderDate}%0A` +
                                             `*Time:* ${formData.orderTime}%0A` +
                                             `*Option:* ${formData.deliveryOption}%0A` +
                                             `*Total:* ${formData.total}%0A%0A` +
-                                            `Product: Bhuna Gosht - 1kg`;
+                                            `*Item:* ${formData.item}%0A` +       `*Quantity:* ${formData.quantity} kg%0A` +       `*Total:* ${formData.total}`;
 
                           // Redirect to WhatsApp
                           const whatsappUrl = `https://wa.me/971524718286?text=${message}`;
