@@ -486,7 +486,7 @@
                   <div class="modal-content">
                           <span class="close">&times;</span>
                           <h2>Complete Your Order</h2>
-                          <form id="orderForm">
+                          <form id="orderForm" onsubmit="return false;" action="javascript:void(0);">
                                     <div class="form-group">
                                                 <label for="customerName">Name *</label>
                                                 <input type="text" id="customerName" name="customerName" required>
@@ -544,7 +544,7 @@
                                                 <div id="orderTotal" style="font-size: 1.2rem; font-weight: bold; color: var(--primary); margin-top: 10px;"></div>
                                               </div>
 
-                                    <button type="submit" class="btn btn-submit" style="width: 100%;">Continue to WhatsApp</button>
+                                    <button type="button" onclick="submitOrder()" class="btn btn-submit" style="width: 100%;">Continue to WhatsApp</button>
                                   </form>
                         </div>
                 </div>
@@ -659,7 +659,7 @@
                         });
 
         // Handle form submission
-        form.addEventListener('submit', function(e) {
+        function submitOrder() { var e={preventDefault:function(){}}; var f=document.getElementById('orderForm'); if(!f.checkValidity()){f.reportValidity();return;} var dVal=document.getElementById('orderDate').value; if(!dVal){alert('Please select a date');return;} var selD=new Date(dVal+'T00:00:00'); var minDate=new Date(Date.now()+24*60*60*1000); minDate.setHours(0,0,0,0); if(selD<minDate){alert('Please select a date at least 24 hours from now. Orders require 24 hours advance notice.');return;}
           e.preventDefault();
 
           // Calculate totals
@@ -708,4 +708,4 @@
           // Close modal and redirect to WhatsApp (works on mobile and web)
           modal.style.display = 'none';
           setTimeout(function(){ window.open('https://wa.me/971524718286?text=' + waMsg, '_blank'); }, 600);
-        });
+        }
