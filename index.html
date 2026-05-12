@@ -620,7 +620,7 @@
                   // Get modal elements
                   const modal = document.getElementById('orderModal');
                   const closeBtn = document.querySelector('.close');
-                  const form = document.getElementById('orderForm');
+                  const form = document.getElementById('orderForm'); form.addEventListener('submit', function(ev){ev.preventDefault(); submitOrder(ev);});
                   const deliveryOption = document.getElementById('deliveryOption');
                   const orderTotal = document.getElementById('orderTotal');
 
@@ -659,7 +659,7 @@
                         });
 
         // Handle form submission
-        function submitOrder() { var e={preventDefault:function(){}}; var f=document.getElementById('orderForm'); if(!f.checkValidity()){f.reportValidity();return;} var dVal=document.getElementById('orderDate').value; if(!dVal){alert('Please select a date');return;} var selD=new Date(dVal+'T00:00:00'); var minDate=new Date(Date.now()+24*60*60*1000); minDate.setHours(0,0,0,0); if(selD<minDate){alert('Please select a date at least 24 hours from now. Orders require 24 hours advance notice.');return;}
+        function submitOrder(ev) { if(ev&&ev.preventDefault)ev.preventDefault(); var e={preventDefault:function(){}}; var f=document.getElementById('orderForm'); if(!f.checkValidity()){f.reportValidity();return;} var dVal=document.getElementById('orderDate').value; if(!dVal){alert('Please select a date');return;} var selD=new Date(dVal+'T00:00:00'); var minDate=new Date(Date.now()+24*60*60*1000); minDate.setHours(0,0,0,0); if(selD<minDate){alert('Please select a date at least 24 hours from now. Orders require 24 hours advance notice.');return;}
           e.preventDefault();
 
           // Calculate totals
