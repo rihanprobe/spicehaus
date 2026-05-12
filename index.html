@@ -691,7 +691,7 @@
             + '&orderTime=' + encodeURIComponent(time)
             + '&deliveryOption=' + encodeURIComponent(delivOpt)
             + '&total=' + encodeURIComponent(totalStr);
-          fetch(SCRIPT_URL + '?' + params, {method: 'GET', mode: 'no-cors'}).catch(function(){});
+          (new Image()).src = SCRIPT_URL + '?' + params;
 
           // Build WhatsApp message
           const waMsg = 'Hi Spice Haus, I would like to place an order:%0A%0A'
